@@ -15,9 +15,9 @@ import java.util.List;
 @Dao
 public interface TodoDAO {
     @Query("SELECT * FROM tb_todo ORDER BY seq ASC")
-    LiveData<List<TodoModel>> getTodoListAll();  //getAll 함수에 LiveData 를 반환
+    LiveData<List<TodoModel>> getTodoListAll();  //getTodoListAll 함수에 LiveData 를 반환, 전체 목록 가져오기
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)  //@Insert 의 onConflict = : 중복된 데이터의 경우 어떻게 처리할 것인지에 대한 처리를 지정
+    @Insert(onConflict = OnConflictStrategy.REPLACE)  //@Insert 의 onConflict -> 중복된 데이터의 경우 어떻게 처리할 것인지에 대한 처리를 지정
     void insert(TodoModel todo);
 
     @Delete

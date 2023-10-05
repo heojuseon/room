@@ -6,21 +6,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+//테이블과 버전을 정의하는 곳
 
-//
-
-//@Database 의 entites = : entity 정의
-//@Database 의 version = : SQLite 버전 지정
+//@Database 의 entites -> entity 정의
+//@Database 의 version -> SQLite 버전 지정
 @Database(entities = {TodoModel.class}, version = 1)    //Room 데이터베이스 정의
 public abstract class TodoDatabase extends RoomDatabase {   //실질적인 데이터베이스 인스턴스를 생성하는 TodoDatabase 클래스는 RoomDatabase 를 상속하는 추상 클래스로 생성
 
-    public abstract TodoDAO todoDao();
+    public abstract TodoDAO todoDao();  //사용하는 DAO 선언
 
     private static TodoDatabase INSTANCE;   //데이터베이스 인스턴스를 싱글톤으로 관리, 데이터베이스는 애플리케이션 전체에서 한 번만 생성되어야 한다.
 
-    public static TodoDatabase getInstance(Context context) {   // 데이터베이스 인스턴스를 가져오기 위한 정적 메서드
+    public static TodoDatabase getInstance(Context context) {   //TodoRepository 클래스에서 이 메소드 호출해 DB 객체를 반환하기 위해 사용, 데이터베이스 인스턴스를 가져오기 위한 정적 메서드
 
-        if (INSTANCE == null) {
+        if (INSTANCE == null) { //INSTANCE 가 null 일경우 초기화
+
             synchronized (TodoDatabase.class) { //여러 스레드가 접근하지 못하도록 synchronized로 설정
 
                 INSTANCE = Room.databaseBuilder(    //데이터베이스를 (인스턴스)생성

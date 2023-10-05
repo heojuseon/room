@@ -1,4 +1,4 @@
-package com.example.room;
+package com.example.room.view;
 
 
 import android.util.Log;
@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.room.R;
 import com.example.room.model.TodoModel;
 
 import java.text.SimpleDateFormat;
@@ -25,17 +25,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
     private final TodoItemClick deletetItemClick;
 
     public interface TodoItemClick {
-        void onClick(TodoModel todoModel);
+        void onClick(TodoModel todoModel);  //삭제 버튼 클릭시 데이터 삭제
     }
 
     public TodoListAdapter(TodoItemClick deletetItemClick) {
         this.deletetItemClick = deletetItemClick;
-    }
-
-    @Override
-    public int getItemCount() {
-        Log.d("MainActivity", "todoItem getItemCount !!: " + todoItems.size());
-        return todoItems.size();
     }
 
     @Override
@@ -51,9 +45,13 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
         holder.bind(todoModel);
     }
 
+    @Override
+    public int getItemCount() {
+        return todoItems.size();
+    }
+
     public void setTodoItems(List<TodoModel> todoItems) {
         this.todoItems = todoItems;
-        Log.d("MainActivity", "todoItem setTodoItems !!: " + todoItems.size());
         notifyDataSetChanged();
     }
 
@@ -83,7 +81,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
         }
     }
 
-    public static String convertDateToString(long timeMillis, String format) {
+    public static String convertDateToString(long timeMillis, String format) {      //현재 날짜
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(new Date(timeMillis));
     }
